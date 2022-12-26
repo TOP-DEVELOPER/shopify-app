@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "@shopify/app-bridge-react";
 import {
   Card,
   Icon,
@@ -6,21 +6,17 @@ import {
   Stack,
   TextStyle,
   Thumbnail,
-  Truncate,
-  UnstyledLink
+  UnstyledLink,
 } from "@shopify/polaris";
-import { DiamondAlterMajor, ImageMajor } from "@shopify/polaris-icons";
+import { DiamondAlertMajor, ImageMajor } from "@shopify/polaris-icons";
 
 /* useMedia is used to support multiple screen sizes */
-
 import { useMedia } from "@shopify/react-hooks";
 
 /* dayjs is used to capture and format the date a QR code was created or modified */
-
 import dayjs from "dayjs";
 
 /* Markup for small screen sizes (mobile) */
-
 function SmallScreenCard({
   id,
   title,
@@ -31,16 +27,14 @@ function SmallScreenCard({
   navigate,
 }) {
   return (
-    <UnstyledLink onClick={() =>
-      navigate(`/qrcodes/${id}`)}>
-      <div style={{ padding: "0.75rem 1rem", borderBottom: "1px solid #E1E3E5" }}
+    <UnstyledLink onClick={() => navigate(`/qrcodes/${id}`)}>
+      <div
+        style={{ padding: "0.75rem 1rem", borderBottom: "1px solid #E1E3E5" }}
       >
         <Stack>
           <Stack.Item>
             <Thumbnail
-              source={
-                product?.images?.edges[0]?.node?.url || ImageMajor
-              }
+              source={product?.images?.edges[0]?.node?.url || ImageMajor}
               alt="placeholder"
               color="base"
               size="small"
@@ -55,22 +49,19 @@ function SmallScreenCard({
                   </TextStyle>
                 </p>
                 <p>{truncate(product?.title, 35)}</p>
-                <p>{dayjs(createdAt).format("MMMM D,YYYY")}</p>
+                <p>{dayjs(createdAt).format("MMMM D, YYYY")}</p>
               </Stack.Item>
               <div style={{ display: "flex" }}>
                 <div style={{ flex: "3" }}>
-                  <TextStyle
-                    variation="subdued">Discount</TextStyle>
-                  <p>{discountCode || "_"}</p>
+                  <TextStyle variation="subdued">Discount</TextStyle>
+                  <p>{discountCode || "-"}</p>
                 </div>
                 <div style={{ flex: "2" }}>
-                  <TextStyle
-                    variation="subdued">Scans</TextStyle>
+                  <TextStyle variation="subdued">Scans</TextStyle>
                   <p>{scans}</p>
                 </div>
               </div>
             </Stack>
-
           </Stack.Item>
         </Stack>
       </div>
@@ -78,10 +69,10 @@ function SmallScreenCard({
   );
 }
 
-export  function  QRCodeIndex({QRCodes,loading}){
+export function QRCodeIndex({ QRCodes, loading }) {
   const navigate = useNavigate();
-  /* Check if screen is small*/
- 
+
+  /* Check if screen is small */
   const isSmallScreen = useMedia("(max-width: 640px)");
 
   /* Map over QRCodes for small screen */
